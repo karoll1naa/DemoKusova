@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import Main.Game;
 import Main.Keyboard;
+import Main.Menu;
 
 public class Main extends Canvas implements Runnable {
 
@@ -100,16 +101,7 @@ public class Main extends Canvas implements Runnable {
 
     }
     public static void main(String[] args) {
-        Main m = new Main();
-        m.frame.setResizable(false);
-        m.frame.setTitle("2048");
-        m.frame.add(m);
-        m.frame.pack();
-        m.frame.setVisible(true);
-        m.frame.setLocationRelativeTo(null);
-        m.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        m.frame.setAlwaysOnTop(true);
-        m.start();
+        new Menu();
+    }
 
     }
-}
