@@ -63,7 +63,7 @@ public class Main extends Canvas implements Runnable {
             lastTimeInNanoSeconds = currentTimeInNanoSeconds;
             render();
             if (System.currentTimeMillis() - timer > 1000) {
-                frame.setTitle("2048" + updates + " updates, " + " frames");
+                frame.setTitle("2048");
                 updates = 0;
                 timer += 1000;
             }
