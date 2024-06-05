@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import Main.Game;
 import Main.Keyboard;
@@ -26,6 +28,12 @@ public class Main extends Canvas implements Runnable {
         game = new Game();
         key = new Keyboard();
         addKeyListener(key);
+        try {
+            BufferedImage icon = ImageIO.read(getClass().getResource("/Resource/icon.png"));
+            frame.setIconImage(icon);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void start() {
