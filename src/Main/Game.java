@@ -9,12 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.swing.*;
+
 public class Game {
     public static List<GameObject> objects;
     public static boolean moving = false, hasMoved = true, somethingIsMoving = false;
     public static int direction = 0;
     private final Random rand = new Random();
-    private int score;
+    public int score;
     public Game() {
         init();
     }
@@ -39,7 +41,65 @@ public class Game {
         movingLogic();
     }
 
-    private void checkForValueIncrease() {
+    public boolean hasFreeMoves() {
+        // Перевірка наявності порожніх клітин
+        for (int y = 0; y < 4; y++) {
+            for (int x = 0; x < 4; x++) {
+                boolean cellIsEmpty = true;
+                for (GameObject obj : objects) {
+                    if (obj.x / 100 == x && obj.y / 100 == y) {
+                        cellIsEmpty = false;
+                        break;
+                    }
+                }
+                if (cellIsEmpty) {
+                    return true; // Є порожня клітина, отже, є вільний хід
+                }
+            }
+        }
+
+        // Перевірка можливості об'єднання сусідніх елементів
+        for (GameObject obj : objects) {
+            int x = (int) (obj.x / 100);
+            int y = (int) (obj.y / 100);
+            // Перевірка верхнього сусіда
+            if (y > 0) {
+                for (GameObject neighbor : objects) {
+                    if (neighbor.x / 100 == x && neighbor.y / 100 == y - 1 && neighbor.value == obj.value) {
+                        return true; // Є можливість об'єднати елементи, отже, є вільний хід
+                    }
+                }
+            }
+            // Перевірка нижнього сусіда
+            if (y < 3) {
+                for (GameObject neighbor : objects) {
+                    if (neighbor.x / 100 == x && neighbor.y / 100 == y + 1 && neighbor.value == obj.value) {
+                        return true; // Є можливість об'єднати елементи, отже, є вільний хід
+                    }
+                }
+            }
+            // Перевірка лівого сусіда
+            if (x > 0) {
+                for (GameObject neighbor : objects) {
+                    if (neighbor.x / 100 == x - 1 && neighbor.y / 100 == y && neighbor.value == obj.value) {
+                        return true; // Є можливість об'єднати елементи, отже, є вільний хід
+                    }
+                }
+            }
+            // Перевірка правого сусіда
+            if (x < 3) {
+                for (GameObject neighbor : objects) {
+                    if (neighbor.x / 100 == x + 1 && neighbor.y / 100 == y && neighbor.value == obj.value) {
+                        return true; // Є можливість об'єднати елементи, отже, є вільний хід
+                    }
+                }
+            }
+        }
+
+        return false; // Немає вільних ходів
+    }
+
+    public void checkForValueIncrease() {
         for (int i = 0; i < objects.size(); i++) {
             for (int j = 0; j < objects.size(); j++) {
                 if (i == j) continue;
@@ -55,6 +115,7 @@ public class Game {
                 if (objects.get(i).remove) objects.remove(i);
         }
     }
+
     private void spawn() {
         if(objects.size() == 16) return;
         boolean available = false;
@@ -122,13 +183,6 @@ public class Game {
             Main.pixels[i] = Renderer.pixels[i];
         }
     }
-    public void renderScore(Graphics2D g) {
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setFont(new Font("Verdana", Font.BOLD, 24));
-        g.setColor(Color.BLACK);
-        g.drawString("Score: " + score, 10, 40);
-    }
-
     public void renderText(Graphics2D g) {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setFont(new Font("Verdana", 0, 100));
@@ -142,5 +196,14 @@ public class Game {
         }
         renderScore(g);
     }
-
+    public void renderScore(Graphics2D g) {
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setFont(new Font("Verdana", Font.BOLD, 24));
+        g.setColor(Color.BLACK);
+        g.drawString("Score: " + score, 10, 40);
+    }
+    public int getScore() {
+        return score;
+    }
 }
+

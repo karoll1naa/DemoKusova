@@ -5,7 +5,8 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
+import javax.swing.*;
+import Main.EndDialog;
 import Main.Game;
 import Main.Keyboard;
 import Main.Menu;
@@ -83,7 +84,15 @@ public class Main extends Canvas implements Runnable {
     public void update() {
         game.update();
         key.update();
-
+        if (!game.hasFreeMoves()) {
+            running = false;
+            int finalScore = game.getScore(); // Додайте цей рядок для отримання рахунку
+            SwingUtilities.invokeLater(() -> {
+                frame.dispose();
+                EndDialog endDialog = new EndDialog(finalScore);
+                endDialog.setVisible(true);
+            });
+        }
     }
 
     public void render() {
@@ -102,6 +111,7 @@ public class Main extends Canvas implements Runnable {
     }
     public static void main(String[] args) {
         new Menu();
+
     }
 
     }

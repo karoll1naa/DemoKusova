@@ -24,7 +24,7 @@ public class Menu extends JFrame implements ActionListener {
         playButton = new JButton("Розпочати гру");
         playButton.setBounds(95, 80, 200, 70);
         playButton.setFocusPainted(false);
-        playButton.setFont(new Font("SansSerif", Font.ITALIC, 21));
+        playButton.setFont(new Font("Verdana", Font.ITALIC, 21));
         playButton.setBorder(new LineBorder(Color.white, 2));
         playButton.setBackground(new Color(255,229,153));
         playButton.addActionListener(this);
@@ -32,7 +32,7 @@ public class Menu extends JFrame implements ActionListener {
 
         exitButton = new JButton("Вихід");
         exitButton.setBounds(95, 190, 200, 70);
-        exitButton.setFont(new Font("SansSerif", Font.ITALIC, 21));
+        exitButton.setFont(new Font("Verdana", Font.ITALIC, 21));
         exitButton.setBorder(new LineBorder(Color.white, 2));
         exitButton.setBackground(new Color(255,229,153));
         exitButton.addActionListener(this);
@@ -46,6 +46,7 @@ public class Menu extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == playButton) {
+            dispose();
             Main m = new Main();
             m.frame.setResizable(false);
             m.frame.setTitle("2048");
@@ -61,8 +62,4 @@ public class Menu extends JFrame implements ActionListener {
             }
         }
 
-    public static void main(String[] args) {
-        new Menu();
-
-    }
 }
