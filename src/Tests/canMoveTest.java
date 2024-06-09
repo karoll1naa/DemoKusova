@@ -29,7 +29,7 @@ public class canMoveTest {
     @Test
     public void testCanMoveWhenCollisions() {
         GameObject obj1 = new GameObject(50, 50);
-        GameObject obj2 = new GameObject(90, 90);
+        GameObject obj2 = new GameObject(50, 50);
         Game.objects.clear();
         Game.objects.add(obj1);
         Game.objects.add(obj2);
