@@ -1,5 +1,4 @@
 package Main;
-import Main.Main;
 
 public class Renderer {
     public static int width = Main.WIDTH, height = Main.HEIGHT;

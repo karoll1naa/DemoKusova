@@ -1,7 +1,4 @@
 package Main;
-
-import Main.Main;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -19,7 +16,6 @@ public class Menu extends JFrame implements ActionListener {
         setIconImage(icon.getImage());
 
         JPanel panel = new JPanel((null));
-
 
         playButton = new JButton("Розпочати гру");
         playButton.setBounds(95, 80, 200, 70);
@@ -40,7 +36,6 @@ public class Menu extends JFrame implements ActionListener {
 
         add(panel);
         setLocationRelativeTo(null);
-
         setVisible(true);
     }
 

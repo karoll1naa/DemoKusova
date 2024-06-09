@@ -1,15 +1,9 @@
 package Main;
-import Main.Main;
-import Main.GameObject;
-import Main.Renderer;
-import Main.Keyboard;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
-import javax.swing.*;
 
 public class Game {
     public static List<GameObject> objects;
@@ -42,7 +36,6 @@ public class Game {
     }
 
     public boolean hasFreeMoves() {
-        // Перевірка наявності порожніх клітин
         for (int y = 0; y < 4; y++) {
             for (int x = 0; x < 4; x++) {
                 boolean cellIsEmpty = true;
@@ -53,50 +46,45 @@ public class Game {
                     }
                 }
                 if (cellIsEmpty) {
-                    return true; // Є порожня клітина, отже, є вільний хід
+                    return true;
                 }
             }
         }
 
-        // Перевірка можливості об'єднання сусідніх елементів
         for (GameObject obj : objects) {
             int x = (int) (obj.x / 100);
             int y = (int) (obj.y / 100);
-            // Перевірка верхнього сусіда
             if (y > 0) {
                 for (GameObject neighbor : objects) {
                     if (neighbor.x / 100 == x && neighbor.y / 100 == y - 1 && neighbor.value == obj.value) {
-                        return true; // Є можливість об'єднати елементи, отже, є вільний хід
+                        return true;
                     }
                 }
             }
-            // Перевірка нижнього сусіда
             if (y < 3) {
                 for (GameObject neighbor : objects) {
                     if (neighbor.x / 100 == x && neighbor.y / 100 == y + 1 && neighbor.value == obj.value) {
-                        return true; // Є можливість об'єднати елементи, отже, є вільний хід
+                        return true;
                     }
                 }
             }
-            // Перевірка лівого сусіда
             if (x > 0) {
                 for (GameObject neighbor : objects) {
                     if (neighbor.x / 100 == x - 1 && neighbor.y / 100 == y && neighbor.value == obj.value) {
-                        return true; // Є можливість об'єднати елементи, отже, є вільний хід
+                        return true;
                     }
                 }
             }
-            // Перевірка правого сусіда
             if (x < 3) {
                 for (GameObject neighbor : objects) {
                     if (neighbor.x / 100 == x + 1 && neighbor.y / 100 == y && neighbor.value == obj.value) {
-                        return true; // Є можливість об'єднати елементи, отже, є вільний хід
+                        return true;
                     }
                 }
             }
         }
 
-        return false; // Немає вільних ходів
+        return false;
     }
 
     public void checkForValueIncrease() {
